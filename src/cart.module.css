@@ -1,0 +1,136 @@
+.cartItemWrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 20px;
+  padding: 20px;
+}
+.desc {
+  color: #6c757d;
+  line-height: 1.4;
+  font-size: smaller;
+
+}
+/* .cardWrap {
+    margin-left: 0;
+    display: flex;
+    flex-flow: column;
+    gap: 20px;
+}  */
+.emptyCart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.cartContainer {
+    margin: auto;
+    width: 90vw;
+}
+
+.cartItemsGrid {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.cartItemPaper {
+    padding: 20px;
+    margin: 10px;
+}
+
+.productImage {
+    width: 150px;
+    height: 200px;
+    object-fit: contain;
+}
+
+.quantityControls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.quantityInput {
+    width: 50px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.productDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.productTitle {
+    text-align: left;
+}
+
+.productPrice {
+    text-align: left;
+    color: #28a745;
+    font-weight: bold;
+}
+
+.removeButtonContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.orderSummary {
+    padding: 20px;
+    margin-top: 20px;
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+}
+
+.summaryTitle {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.summaryItems {
+    margin-bottom: 15px;
+}
+
+.summaryRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.freeShipping {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.summaryTotal {
+    border-top: 2px solid #e0e0e0;
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.grandTotalRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.grandTotalAmount {
+    color: #28a745;
+}
+
+.checkoutButton {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+}

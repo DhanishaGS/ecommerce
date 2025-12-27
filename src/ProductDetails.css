@@ -1,0 +1,73 @@
+.productDetailsContainer {
+    padding: 16px;
+    min-height: 80vh;
+}
+
+.imageContainer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.productImage {
+    width: 18rem;
+    height: 24rem;
+    object-fit: contain;
+}
+
+.cardFooter {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.cardBody {
+    flex: 1;
+    padding: 24px;
+}
+
+.productTitle {
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #2c3e50;
+}
+
+.ratingContainer {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.starIcon {
+    color: #ffc107;
+}
+
+.reviewCount {
+    color: #6c757d;
+}
+
+.sectionLabel {
+    color: #495057;
+}
+
+.descriptionText {
+    margin: 0;
+    color: #6c757d;
+    line-height: 1.6;
+}
+
+.priceText {
+    font-weight: bold;
+    color: #28a745;
+    font-size: 28px;
+}
+
+.cardContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
