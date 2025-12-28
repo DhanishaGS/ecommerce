@@ -1,8 +1,8 @@
 import { Button } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "./hooks";
 import { Paper, Grid } from "@mui/material";
 import styles from './cart.module.css';
-import { useState, useEffect, useMemo } from "react";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import type { Item } from "./types/ItemInterface";
 
 const Cart = () => {
     let cartItems = useAppSelector((state) => state.cart.items);
@@ -14,7 +14,7 @@ const Cart = () => {
     const dispatch = useAppDispatch();
 
 
-    const removeItem = (item: any) => {
+    const removeItem = (item: Item) => {
         dispatch({ type: 'cart/removeCart', payload: item })
     }
 
@@ -90,8 +90,8 @@ const Cart = () => {
 
                         <div className={styles.summaryItems}>
                             <div className={styles.summaryRow}>
-                                <span>Subtotal ({cartItems.reduce((sum: number, item: any) => sum + item.count, 0)} items)</span>
-                                <span>${cartItems.reduce((sum: number, item: any) => sum + (item.price * item.count), 0).toFixed(2)}</span>
+                                <span>Subtotal ({cartItems.reduce((sum: number, item: Item) => sum + item.count, 0)} items)</span>
+                                <span>${cartItems.reduce((sum: number, item: Item) => sum + (item.price * item.count), 0).toFixed(2)}</span>
                             </div>
 
                             <div className={styles.summaryRow}>
@@ -101,7 +101,7 @@ const Cart = () => {
 
                             <div className={styles.summaryRow}>
                                 <span>Tax (10%)</span>
-                                <span>${(cartItems.reduce((sum: number, item: any) => sum + (item.price * item.count), 0) * 0.10).toFixed(2)}</span>
+                                <span>${(cartItems.reduce((sum: number, item: Item) => sum + (item.price * item.count), 0) * 0.10).toFixed(2)}</span>
                             </div>
                         </div>
 
@@ -109,7 +109,7 @@ const Cart = () => {
                             <div className={styles.grandTotalRow}>
                                 <span>Grand Total</span>
                                 <span className={styles.grandTotalAmount}>
-                                    ${(cartItems.reduce((sum: number, item: any) => sum + (item.price * item.count), 0) * 1.10).toFixed(2)}
+                                    ${(cartItems.reduce((sum: number, item: Item) => sum + (item.price * item.count), 0) * 1.10).toFixed(2)}
                                 </span>
                             </div>
 

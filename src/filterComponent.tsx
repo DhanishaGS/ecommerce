@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { Offcanvas, Button } from "react-bootstrap";
-import { useAppDispatch, useAppSelector } from "./hooks";
-import { filterProducts } from "./filterProductsSlice";
+import { filterProducts } from "./store/slice/filterProductsSlice";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import type { Item } from "./types/ItemInterface";
 
 const FilterComponent = () => {
   const [show, setShow] = useState(false);
   const products = useAppSelector((state) => state.filterProducts.items);
   const uniqueCategories: string[] = Array.from(
-    new Set(products.map((product) => product.category))
+    new Set(products.map((product: Item) => product.category))
   );
   const dispatch = useAppDispatch();
   const [selectedCategories, setSelectedCategories] = useState( useAppSelector((state) => state.filterProducts.filteredItems) ?? []);

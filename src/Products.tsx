@@ -1,4 +1,3 @@
-import { useAppSelector } from './hooks'
 import ProductList from './ProductList'
 
 const Products = () => {

@@ -1,15 +1,16 @@
-import './App.css'
+import { Container, Nav, Navbar } from 'react-bootstrap'
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom'
-import ProductDetails from './ProductDetails'
-import ProductList from './ProductList'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import AddEditForm from './AddEditForm'
+import './App.css'
+import Cart from './cart'
 import Home from './Home'
 import Login from './Login'
-import SignUp from './SignUp'
+import ProductDetails from './ProductDetails'
+import ProductList from './ProductList'
 import Products from './Products'
-import { Button, Container, Nav, Navbar } from 'react-bootstrap'
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import Cart from './cart'
 import SellProduct from './SellProduct'
+import SignUp from './SignUp'
 
 function App() {
   const user = "guest";
@@ -44,6 +45,7 @@ function App() {
           <Route path="/login/:newUser" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/addEditProduct/:id?" element={<AddEditForm />} />
         </Routes>
       </BrowserRouter>
     

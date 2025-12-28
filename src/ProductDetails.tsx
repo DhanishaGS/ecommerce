@@ -3,12 +3,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch } from "./hooks";
 import './ProductDetails.css';
 import { FaShoppingCart, FaStar } from "react-icons/fa";
 import { TbShoppingCartShare } from "react-icons/tb";
 import { IoArrowBack } from "react-icons/io5";
-
+import { useAppDispatch } from "./store/hooks";
+import { getProductbyId } from "./api/services";
 const ProductDetails = () => {
     const routeParam = useParams();
     const navigate = useNavigate();
@@ -23,19 +23,21 @@ const ProductDetails = () => {
         dispatch({ type: 'cart/addCart', payload: product })
         navigate("/cart");
     }
-    useEffect(() => {
-        axios
-            .get(`http://localhost:5000/products/${routeParam.id}`)
-            .then((response) => {
-                setProductsDetails(response.data);
-            })
-            .catch((error) => {
-                setError(error.message);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
-    }, []);
+     useEffect(() => {
+            const fetchProducts = async () => {
+          try {
+            const data = await getProductbyId(routeParam.id);
+            if (data) {
+              setProductsDetails(data);
+            }
+          } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to fetch products');
+          } finally {
+            setIsLoading(false);
+          }
+        };
+        fetchProducts()
+        }, []);
     return (
         <>
             <div style={{ padding: '0 5vw' }}>

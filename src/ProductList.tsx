@@ -1,58 +1,50 @@
-import { Button, Card, Offcanvas } from "react-bootstrap";
-import axios from "axios";
-import { useEffect, useMemo, useState } from "react";
 import { Chip, Paper } from "@mui/material";
-import './productList.css';
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "./hooks";
-import FilterComponent from "./FilterComponent";
+import { useEffect, useState } from "react";
+import { Card } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
-import './ProductDetails.css'
-
+import { useNavigate } from "react-router-dom";
+import { getProducts } from "./api/services";
+import FilterComponent from "./filterComponent";
+import './ProductDetails.css';
+import './productList.css';
+import { useAppSelector } from "./store/hooks";
+import type { Item } from "./types/ItemInterface";
 const ProductList = () => {
-    let [products, setProducts] = useState([]);
-    const filteredCategory = useAppSelector((state) => state.filterProducts.filteredItems) ?? [];
-    // setProducts(products);
-
-    const [error, setError] = useState("");
+    const [products, setProducts] = useState([]);
+    const [error, setError] = useState<string | null>(null);
+    const filteredCategory: string[] = useAppSelector((state) => state.filterProducts.filteredItems) ?? [];
     const [isLoading, setIsLoading] = useState(true);
-    const dispatch = useAppDispatch()
     const navigate = useNavigate();
     useEffect(() => {
-        axios
-            .get("http://localhost:5000/products")
-            .then((response) => {
-                setProducts(response.data);
-                dispatch({ type: 'products/setProducts', payload: response.data })
-            })
-            .catch((error) => {
-                setError(error.message);
-            })
-            .finally(() => {
-                setIsLoading(false);
-            });
+        const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+        if (data) {
+          setProducts(data);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch products');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchProducts()
     }, []);
-    // Filter products using useMemo to avoid recalculating on every render
-    // const displayedProducts = useMemo(() => {
-    //     if (filteredCategory.length > 0) {
-    //         return products.filter((product: any) => filteredCategory.includes(product.category));
-    //     }
-    //     return products;
-    // }, [products, filteredCategory]);
     const displayedProducts = filteredCategory.length > 0
-        ? products.filter((product: any) => filteredCategory.includes(product.category))
+        ? products.filter((product: Item) => filteredCategory.includes(product.category))
         : products;
     if (isLoading) {
         return <p>Loading...</p>;
     } else {
-
-
+        if (error) {
+            return <p>Something went wrong: {error}</p>;
+        }
         return (
             <Paper elevation={3} sx={{ minHeight: '80vh', width: '90vw', margin: 'auto' }} className="productDetailsContainer">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 1rem' }}>
-                <h6>{filteredCategory.length > 0 ? `Filtered Products - ${displayedProducts.length}` : `Product Lists - ${displayedProducts.length}`}</h6>
-                <FilterComponent />
-            </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 1rem' }}>
+                    <h6>{filteredCategory.length > 0 ? `Filtered Products - ${displayedProducts.length}` : `Product Lists - ${displayedProducts.length}`}</h6>
+                    <FilterComponent />
+                </div>
                 <section className="products">
                     {displayedProducts.map((product: any) => (
                         <Card
@@ -61,17 +53,17 @@ const ProductList = () => {
                             key={product.id} onClick={() => navigate(`/productdetails/${product.id}`)}
                         >
                             <center>
-                                <Card.Img
-                                    style={{ width: "9rem", height: "12rem" , padding: "1rem"}}
+                                <Card.Img  alt="Product Image"
+                                    style={{ width: "9rem", height: "12rem", padding: "1rem" }}
                                     variant="top"
-                                    src={product.image}
+                                    src={product.image || null}
                                 />
                             </center>
                             <Card.Body>
                                 <Card.Title style={{ height: "5rem", overflow: "auto" }}>{product.title}</Card.Title>
                                 {/* <Card.Text>{product.description}</Card.Text> */}
                             </Card.Body>
-                            <div className="ratingContainer" style={{ padding: '0 20px'}}>
+                            <div className="ratingContainer" style={{ padding: '0 20px' }}>
                                 <Chip
                                     icon={<FaStar className="starIcon" />}
                                     label={`${product?.rating?.rate || 0}`}
