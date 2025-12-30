@@ -264,5 +264,13 @@
         "count": "0345"
       }
     }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "Dhanisha",
+      "password": "Password123",
+      "email": "dhanisha@example.com"
+    }
   ]
 }

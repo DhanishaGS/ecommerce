@@ -47,3 +47,22 @@ export const deleteProduct = async (productsId: string) => {
     return false;
   }
 };
+//just for testing user fetch functionality
+export const getUsers = async () => {
+  try {
+    const response = await axios.get('/users');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return false;
+  }
+};
+export const updateUsers = async (newUser: any) => {
+  try {
+    const response = await axios.post('/users', newUser);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating users:', error);
+    return false;
+  }
+};

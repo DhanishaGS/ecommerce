@@ -1,4 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Item } from "../../types/ItemInterface";
 
 interface CartItem {
   id: string
@@ -46,13 +47,13 @@ export const cartSlice = createSlice({
     },
     removeCart: (state, action: PayloadAction<CartItem>) => {
       const items = JSON.parse(localStorage.getItem("cartItems") || "[]");
-      state.items = items.filter((item) => item.id !== action.payload.id);
+      state.items = items.filter((item: Item) => item.id !== action.payload.id);
       localStorage.setItem("cartItems", JSON.stringify(state.items));
     },
     decrementQuantity: (state, action: PayloadAction<string | number>) => {
       const items = JSON.parse(localStorage.getItem("cartItems") || "[]");
 
-      state.items = items.map((item) =>
+      state.items = items.map((item:Item) =>
         item.id === action.payload
           ? { ...item, count: Math.max((item.count || 1) - 1, 1) }
           : item
@@ -62,7 +63,7 @@ export const cartSlice = createSlice({
     incrementQuantity: (state, action: PayloadAction<string | number>) => {
       const items = JSON.parse(localStorage.getItem("cartItems") || "[]");
 
-      state.items = items.map((item) =>
+      state.items = items.map((item: Item) =>
         item.id === action.payload
           ? { ...item, count: (item.count || 0) + 1 }
           : item
